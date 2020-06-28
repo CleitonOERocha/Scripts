@@ -8,13 +8,6 @@ library(xml2)
 library(stringr)
 library(rvest)
 
-#########################################################################################################
-################### Decretos Municipais/Estaduais/Federais sobre o Covid-19 #############################
-#########################################################################################################
-################ Elaborado por: Cleiton Rocha - cleitonrocha@sei.ba.gov.br ##############################
-#########################################################################################################
-
-
 # altere o caminho para onde os arquivos serão salvos #
 setwd("C:\\Users\\cleitonrocha\\Desktop\\Cidacs\\ETL")
 
@@ -22,33 +15,33 @@ setwd("C:\\Users\\cleitonrocha\\Desktop\\Cidacs\\ETL")
 #### DECRETOS POR ESTADO
 ########################################################
 
-Acre <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AC", encoding =  'UTF-8', sep=",")
-Alagoas <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AL", encoding =  'UTF-8', sep=",")
-Amapá <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AP", encoding =  'UTF-8', sep=",")
-Amazonas <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AM", encoding =  'UTF-8', sep=",")
-Bahia<- read.csv2("https://leismunicipais.com.br/coronavirus?estado=BA", encoding =  'UTF-8', sep=",")
-Ceará <-read.csv2("https://leismunicipais.com.br/coronavirus?estado=CE", encoding =  'UTF-8', sep=",")
-Distrito_Federal<- read.csv2("https://leismunicipais.com.br/coronavirus?estado=DF", encoding =  'UTF-8', sep=",")
-Espírito_Santo <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=ES", encoding =  'UTF-8', sep=",")
-Goiás <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=GO", encoding =  'UTF-8', sep=",")
-Maranhão <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MA", encoding =  'UTF-8', sep=",")
-Mato_Grosso <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MT", encoding =  'UTF-8', sep=",")
-Mato_Grosso_do_Sul <-read.csv2("https://leismunicipais.com.br/coronavirus?estado=MS", encoding =  'UTF-8', sep=",")
-Minas_Gerais <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MG", encoding =  'UTF-8', sep=",")
-Pará <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PA", encoding =  'UTF-8', sep=",")
-Paraíba  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PB", encoding =  'UTF-8', sep=",")
-Paraná  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PR", encoding =  'UTF-8', sep=",")
-Pernambuco <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PE", encoding =  'UTF-8', sep=",")
-Piauí <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PI", encoding =  'UTF-8', sep=",")
-Rio_de_Janeiro <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RJ", encoding =  'UTF-8', sep=",")
-Rio_Grande_do_Norte <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RN", encoding =  'UTF-8', sep=",")
-Rio_Grande_do_Sul  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RS", encoding =  'UTF-8', sep=",")
-Rondônia <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RO", encoding =  'UTF-8', sep=",")
-Roraima <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RR", encoding =  'UTF-8', sep=",")
-Santa_Catarina  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SC", encoding =  'UTF-8', sep=",")
-São_Paulo <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SP", encoding =  'UTF-8', sep=",")
-Sergipe <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SE", encoding =  'UTF-8', sep=",")
-Tocantins <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=TO", encoding =  'UTF-8', sep=",")
+Acre <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AC", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Alagoas <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AL", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Amapá <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AP", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Amazonas <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=AM", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Bahia<- read.csv2("https://leismunicipais.com.br/coronavirus?estado=BA", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Ceará <-read.csv2("https://leismunicipais.com.br/coronavirus?estado=CE", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Distrito_Federal<- read.csv2("https://leismunicipais.com.br/coronavirus?estado=DF", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Espírito_Santo <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=ES", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Goiás <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=GO", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Maranhão <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MA", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Mato_Grosso <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MT", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Mato_Grosso_do_Sul <-read.csv2("https://leismunicipais.com.br/coronavirus?estado=MS", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Minas_Gerais <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=MG", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Pará <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PA", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Paraíba  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PB", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Paraná  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PR", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Pernambuco <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PE", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Piauí <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=PI", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Rio_de_Janeiro <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RJ", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Rio_Grande_do_Norte <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RN", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Rio_Grande_do_Sul  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RS", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Rondônia <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RO", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Roraima <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=RR", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Santa_Catarina  <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SC", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+São_Paulo <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SP", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Sergipe <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=SE", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
+Tocantins <- read.csv2("https://leismunicipais.com.br/coronavirus?estado=TO", encoding =  'UTF-8', sep=",", stringsAsFactors = F)
 
 # criando coluna 'Estado'
 Acre <-Acre %>% mutate(Estado = "Acre")
@@ -174,17 +167,45 @@ fed_covid <- fed_covid %>% mutate(Tipo="Federal") %>% mutate(Localidade="Brasil"
 
 Decretos_Covid_Brasil <- full_join(DECRETOS_ESTADOS, fed_covid, by=c("Decretos","Localidade","Ementa","Tipo"))
 
-##########################################################
-######## Dataset com todos os decretos em Salvador
-##########################################################
+#### Criando coluna 'Tipo do Documento'
 
-DECRETOS_SALVADOR <- Decretos_Covid_Brasil %>% filter(Localidade == "Salvador/BA")
+Decretos_Covid_Brasil$Tipo_Documento <- word(Decretos_Covid_Brasil$Decretos)
+
+### Retirando '/' depois do nome do município 
+Decretos_Covid_Brasil$Localidade <- gsub("\\/.*","",Decretos_Covid_Brasil$Localidade)
+
+########################################################################
+######### Carregando dataset com códigos dos municípios
+#######################################################################
+
+codigos_igbe <- read.csv2("https://raw.githubusercontent.com/CleitonOERocha/Scripts/master/Decretos%20Covid/codigo_municipios_IBGE.csv",
+                          encoding = "ISO-8859-1", stringsAsFactors = F)
+
+### Merge entre códigos e dataset
+Decretos_Covid_Brasil <- left_join(Decretos_Covid_Brasil, codigos_igbe, by = c("Localidade","Estado"))
+
+### Criando condições para registrar apenas Municípios, e não Estados 
+  Decretos_Covid_Brasil$Codigo_Municipio <- ifelse(Decretos_Covid_Brasil$Tipo == "Municipal",
+                                                   Decretos_Covid_Brasil$Codigo_Municipio, NA)
+  
+  Decretos_Covid_Brasil$Nome_Mesorregião <- ifelse(Decretos_Covid_Brasil$Tipo == "Municipal",
+                                                   Decretos_Covid_Brasil$Nome_Mesorregião, NA)
+  
+  Decretos_Covid_Brasil$Cod_UF <- ifelse(Decretos_Covid_Brasil$Tipo == "Municipal",
+                                         Decretos_Covid_Brasil$Cod_UF, NA)
+
+############################################################
+############# Dataset com todos os decretos em Salvador
+############################################################
+
+DECRETOS_SALVADOR <- Decretos_Covid_Brasil %>% filter(Localidade == "Salvador")
 
 ############################################################################################
 ######## Dataset com todos os decretos na Bahia - Apenas Estaduais e Estaduais/Municipais
 ############################################################################################
 
-DECRETOS_BAHIA_ESTADUAL <- Decretos_Covid_Brasil %>% filter(Localidade == "Bahia") # Decretos Estaduais
+DECRETOS_BAHIA_ESTADUAL <- Decretos_Covid_Brasil %>% filter(Localidade == "Bahia") %>% 
+                           select(Localidade, Decretos, Ementa, Tipo, Url, Tipo_Documento) # Decretos Estaduais
 
 DECRETOS_BAHIA_TODOS <- Decretos_Covid_Brasil %>% filter(Estado == "Bahia") # Decretos do Estado e Municipios
 
@@ -192,7 +213,8 @@ DECRETOS_BAHIA_TODOS <- Decretos_Covid_Brasil %>% filter(Estado == "Bahia") # De
 ######## Dataset com decretos Federais
 #############################################
 
-DECRETOS_FEDERAIS <- Decretos_Covid_Brasil %>% filter(Localidade == "Brasil") %>% select(Localidade,Decretos,Ementa,Tipo)
+DECRETOS_FEDERAIS <- Decretos_Covid_Brasil %>% filter(Localidade == "Brasil") %>%
+                     select(Localidade, Decretos, Ementa, Tipo, Tipo_Documento)
 
 ###########################################################
 ########## Salvando em CSV
@@ -206,7 +228,3 @@ write.csv2(DECRETOS_FEDERAIS,"Decretos_Federais.csv", row.names = F) # Federais
 
 # removendo datasets não utilizados #
 rm(html2, html_tabela, fed_covid)
-
-
-
-
