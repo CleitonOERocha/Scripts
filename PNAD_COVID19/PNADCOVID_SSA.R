@@ -260,7 +260,7 @@ ggplot(home_renda, aes(fill = Faixa_salario, y = trab_home_office, x = Cor)) +
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
   labs(x = "Cor/Raça", fill = "Faixa Salarial:\n(Salários mínimos) ", y ="Percentual (%)",caption = "Elaborado por: Cleiton Rocha\nFonte: Microdados da PNAD Covid - IBGE",
-       title = "Percentual de trabalhadores em Home Office, por Cor/Raça e Faixa Salarial ") +
+       title = "Pessoas em Home Office, por Cor/Raça e Faixa Salarial - Salvador/BA ") +
   scale_fill_manual(values = c("#fad390","#e55039","#4a69bd","#60a3bc","#78e08f","#079992"))
 
 
