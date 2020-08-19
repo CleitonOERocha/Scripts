@@ -5,11 +5,13 @@ library(readr)
 library(ggplot2)
 library(tidyr)
 library(Cairo)
+library(scales)
+library(ggrepel)
 
-setwd("C:\\Users\\pc\\Desktop\\PNAD\\PNAD_COVID19")
+setwd("C:\\Users\\pc\\Desktop\\PNAD\\PNAD_COVID19\\PNAD_COVID_062020")
 
 ### Carregando dataset ###
-pnad_covid <- read_csv("PNAD_COVID_052020.csv", col_types = cols(.default = "d"))
+pnad_covid <- read_csv("PNAD_COVID_062020.csv", col_types = cols(.default = "d"))
 
 ### ligando Pesos e filtrando Salvador ###
 pnad_com_pesos <- pnad_covid %>% as_survey_design(ids = UPA, strata = Estrato, weights = V1032, nest = TRUE) %>%
@@ -78,7 +80,7 @@ pnad_com_pesos <- pnad_com_pesos %>% mutate(one = 1,
                                                          "Cedido (Por empregador, Familiar ou outro)")),
                                             home_office = ifelse(C013 == 1, "Home Office", "Presencial"),
                                             auxilio_emergencial = ifelse(D0051 == 1, "Auxílio", "Sem auxílio")
-                                            
+
 )
 
 
@@ -110,11 +112,12 @@ home_sexo_cor_ssa <- ggplot(home_sexo_cor, aes(fill = Cor, y = trab_home_office,
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-  labs(x = "Sexo", fill = "Cor/Raça: ", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Sexo", fill = "Cor/Raça: ", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas em home office, por cor/raça e sexo - Salvador/BA") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
+# Salvando em PNG
 ggsave(plot = home_sexo_cor_ssa, "home_sexo_cor_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -145,11 +148,12 @@ home_edu_cor_ssa <- ggplot(home_edu_cor, aes(fill = Escolaridade, y = trab_home_
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-  labs(x = "Cor/Raça", fill = "Escolaridade: ", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Cor/Raça", fill = "Escolaridade: ", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas em home office, por cor/raça e escolaridade - Salvador/BA ") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7","#fdcb6e")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
+# Salvando em PNG
 ggsave(plot = home_edu_cor_ssa, "home_edu_cor_ssa.png",
        width = 14, height = 7, dpi = 150, units = "in",type = "cairo")
 
@@ -182,12 +186,12 @@ home_sexo_idade_ssa <- ggplot(home_sexo_idade, aes(fill = Idade, y = trab_home_o
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-  labs(x = "Sexo", fill = "Faixa Etária: ", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Sexo", fill = "Faixa Etária: ", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas em home office, por sexo e faixa etária - Salvador/BA") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7","#fdcb6e")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
-
+# Salvando em PNG
 ggsave(plot = home_sexo_idade_ssa, "home_sexo_idade_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -228,13 +232,14 @@ home_emprego_ssa <- ggplot(home_emprego, aes(fill = Tipo_emprego, y = trab_home_
         axis.text.x = element_text(face="bold", color="#000000", size=8),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "none") +
-  labs(x = "Tipo de Ocupação", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Tipo de Ocupação",
+       caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas em home office, por tipo de ocupação - Salvador/BA") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7","#fdcb6e","#636e72", "#55efc4")) +
   scale_x_discrete(labels = legenda_trabalhos) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
-
+# Salvando em PNG
 ggsave(plot = home_emprego_ssa, "home_emprego_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -265,12 +270,12 @@ home_renda_ssa <- ggplot(home_renda, aes(fill = Faixa_salario, y = trab_home_off
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-  labs(x = "Cor/Raça", fill = "Faixa Salarial:\n(Salários mínimos) ", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Cor/Raça", fill = "Faixa Salarial:\n(Salários mínimos) ", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas em home office, por cor/raça e faixa salarial - Salvador/BA ") +
   scale_fill_manual(values = c("#fad390","#e55039","#4a69bd","#60a3bc","#78e08f","#079992")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
-
+# Salvando em PNG
 ggsave(plot = home_renda_ssa, "home_renda_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -302,11 +307,12 @@ auxilio_renda_ssa <- ggplot(auxilio_renda, aes(fill = Faixa_salario, y = pessoas
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "none") +
-  labs(x = "Faixa Salarial", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Faixa Salarial", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas que receberam auxílio emergencial, por renda - Salvador/BA") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7","#fdcb6e","#636e72")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
+# Salvando em PNG
 ggsave(plot = auxilio_renda_ssa, "auxilio_renda_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -326,12 +332,13 @@ legenda_domicilio <- c("Próprio (já pago)",
                        "Alugado", 
                        "Cedido (Por empregador,\n Familiar ou outro)")
 
+
 # gráfico
 auxilio_domicilio_ssa <- ggplot(auxilio_domicilio, aes(fill = domicilio_situacao, y = pessoas_auxilio, x = domicilio_situacao)) +
   geom_bar(position = "dodge", stat = "identity") +
   geom_text(aes(label=sprintf("%1.2f%%",pessoas_auxilio)),size = 3, position =position_dodge(width=0.9),
             vjust=-0.5, color = 'black',fontface='bold') +
-  theme_classic() +
+ theme_classic() +
   theme(axis.title.x = element_text(colour = "black"),
         axis.title.y = element_text(colour = "black"),
         axis.text.y = element_text(face="bold", color="#000000", 
@@ -342,12 +349,13 @@ auxilio_domicilio_ssa <- ggplot(auxilio_domicilio, aes(fill = domicilio_situacao
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "none") +
-  labs(x = "Tipo de domicílio", y ="Percentual (%)",caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(x = "Tipo de domicílio", y ="Percentual (%)",caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Situação do domicílio daqueles que receberam o auxílio emergencial -\n Salvador/BA") +
   scale_fill_manual(values = c("#fad390","#e55039","#4a69bd","#60a3bc","#78e08f","#079992")) +
   scale_x_discrete(labels = legenda_domicilio) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
+# Salvando em PNG
 ggsave(plot = auxilio_domicilio_ssa, "auxilio_domicilio_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
@@ -378,11 +386,12 @@ auxilio_cor_sexo_ssa <- ggplot(auxilio_cor_sexo, aes(fill = Cor, y = pessoas_aux
         axis.text.x = element_text(face="bold", color="#000000", size=10),
         plot.title = element_text(colour = "black", size = 17, hjust=0.5),
         legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-  labs(fill = "Cor: ", x = "Sexo", caption = "Fonte: Microdados da PNAD-COVID19 - IBGE",
+  labs(fill = "Cor: ", x = "Sexo", caption = "Fonte: Microdados da Pnad Covid19 - IBGE. Junho 2020.",
        title = "Pessoas que receberam auxílio emergencial, por cor/raça e sexo -\n Salvador/BA") +
   scale_fill_manual(values = c("#00b894","#ff7675","#0984e3")) +
   scale_y_discrete(limits=factor(0:100), breaks = c(0,10,20,30,40,50,60,70,80,90,100), name = "Percentual (%)")
 
+# Salvando em PNG
 ggsave(plot = auxilio_cor_sexo_ssa, "auxilio_cor_sexo_ssa.png",
        width = 10, height = 5, dpi = 120, units = "in",type = "cairo")
 
