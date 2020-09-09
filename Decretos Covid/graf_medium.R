@@ -5,7 +5,6 @@ library(ggplot2)
 library(Cairo)
 library(tidyr)
 library(ggrepel)
-library(RColorBrewer)
 
 # Pasta de trabalho
 setwd("C:\\Users\\pc\\Desktop\\Cidacs\\ETL")
