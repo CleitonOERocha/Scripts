@@ -8,15 +8,15 @@ library(scales)
 library(ggrepel)
 
 #setwd("C:\\Users\\pc\\Deskt1J2WMuE8JJeN5WsA1v8DxhXBezXy1STMy3")
-#setwd("C:\\Users\\pc\\Deskt1J2WMuE8JJeN5WsA1v8DxhXBezXy1STMy3")
-setwd("C:\\Users\\pc\\Desktop\\PNAD\\PNAD_COVID19\\PNAD_COVID_092020")
+setwd("C:\\Users\\pc\\Desktop\\PNAD\\PNAD_COVID19\\PNAD_COVID_082020")
+#setwd("C:\\Users\\pc\\Desktop\\PNAD\\PNAD_COVID19\\PNAD_COVID_092020")
 
 
 
 ### Carregando dataset ###
 #pnad_covid <- read_csv("PNAD_COVID_062020.csv", col_types = cols(.default = "d"))
-#pnad_covid <- read_csv("PNAD_COVID_082020.csv", col_types = cols(.default = "d"))
-pnad_covid <- read_csv("PNAD_COVID_092020.csv", col_types = cols(.default = "d"))
+pnad_covid <- read_csv("PNAD_COVID_082020.csv", col_types = cols(.default = "d"))
+#pnad_covid <- read_csv("PNAD_COVID_092020.csv", col_types = cols(.default = "d"))
 
 
 ### ligando Pesos e filtrando Salvador ###
@@ -214,7 +214,7 @@ funcao_home_sexo_cor <- function(municipio) {
           axis.text.x = element_text(face="bold", color="#000000", size=10),
           plot.title = element_text(colour = "black", size = 17, hjust=0.5),
           legend.position = "bottom", legend.background = element_rect(fill="ghostwhite", size=0.7, linetype="blank")) +
-    labs(x = "Sexo",y = "Percentual (%)", fill = "Cor/Raça: ", caption = "Fonte: Microdados da PNAD Covid-19 - IBGE. Setembro, 2020.",
+    labs(x = "Sexo",y = "Percentual (%)", fill = "Cor/Raça: ", caption = "Fonte: Microdados da PNAD Covid-19 - IBGE. Agosto, 2020.",
          title = paste0("Pessoas em home office, por cor/raça e sexo - ", municipio)) +
     scale_fill_manual(values = c("#00b894","#ff7675","#0984e3","#6c5ce7")) +
     scale_y_continuous(labels = percent_format(), limits=c(0,1)) 
@@ -478,7 +478,7 @@ funcao_auxilio_renda <- function(municipio) {
   
   auxilio_renda <- pnad_com_pesos %>%
     filter(A002 >= 18) %>% 
-    filter(Capital == "Salvador (BA)") %>% 
+    filter(Capital == format(municipio)) %>% 
     group_by(Faixa_salario) %>%
     summarise(
       auxilio = survey_total(D0051 == 1, na.rm = TRUE),
